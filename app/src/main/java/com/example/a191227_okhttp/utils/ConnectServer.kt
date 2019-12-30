@@ -21,9 +21,9 @@ class ConnectServer {
         fun postRequest(context: Context, name:String ,img:String, phone:String ,handler:JsonRequestHandler?){
 
             var url = "${baseUrl}/..."
-//    실제로 날아갈 요청 작성
+//    서버로 들고갈 폼데이터 작성
             val formData = FormBody.Builder().add("name",name).add("img",img).add("phone",phone).build()
-//    요청 작성
+//    실제로 날아갈 요청 작성
             val request = Request.Builder().url("").post(formData).build()
 //    작성한 요청 보내기
             client.newCall(request).enqueue(object :Callback{
