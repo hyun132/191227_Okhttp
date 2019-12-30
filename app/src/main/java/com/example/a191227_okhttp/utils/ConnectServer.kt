@@ -40,5 +40,28 @@ class ConnectServer {
             })
         }
 
+        fun putRequest(context: Context, name:String ,img:String, phone:String ,handler:JsonRequestHandler?){
+
+            var url = "${baseUrl}/..."
+//    서버로 들고갈 폼데이터 작성
+            val formData = FormBody.Builder().add("name",name).add("img",img).add("phone",phone).build()
+//    실제로 날아갈 요청 작성
+            val request = Request.Builder().url("").put(formData).build()
+
+//    작성한 요청 보내기
+            client.newCall(request).enqueue(object :Callback{
+                override fun onFailure(call: Call, e: IOException) {
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    var body = response.body()!!.string()   // toString()으로 하게 될 경우 모든 내용(글자수..등등) 을 string으로 변환하게되므로 잘못된 파싱이 이루어질수있음..?
+                    val json = JSONObject(body)
+                    handler?.onResponse(json)
+                }
+
+            })
+        }
+
     }
 }
